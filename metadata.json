@@ -1,0 +1,6 @@
+{
+  "name": "Kidos",
+  "description": "Une application intuitive pour gérer les tâches quotidiennes des enfants et de la maison avec un système de récompenses. Optimisée pour Raspberry Pi, tablettes et mobiles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

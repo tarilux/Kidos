@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  kidos:
+    build: .
+    container_name: kidos
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - kidos-data:/app/data
+
+volumes:
+  kidos-data:

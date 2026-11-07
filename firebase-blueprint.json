@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "Family": {
+      "title": "Family",
+      "description": "A group representing a household.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "adminId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "inviteCode": { "type": "string", "minLength": 6, "maxLength": 10 }
+      },
+      "required": ["name", "adminId", "inviteCode"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Personal data for a family member.",
+      "type": "object",
+      "properties": {
+        "familyId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "name": { "type": "string", "maxLength": 50 },
+        "role": { "type": "string", "enum": ["parent", "kid"] },
+        "points": { "type": "number" },
+        "avatar": { "type": "string" }
+      },
+      "required": ["familyId", "name", "role"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A chore or activity to be completed.",
+      "type": "object",
+      "properties": {
+        "familyId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "points": { "type": "number" },
+        "frequency": { "type": "string", "enum": ["daily", "weekly", "once"] },
+        "assignedTo": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "completed", "verified"] },
+        "completedBy": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["familyId", "title", "points", "status"]
+    },
+    "Reward": {
+      "title": "Reward",
+      "description": "An item or privilege a kid can redeem points for.",
+      "type": "object",
+      "properties": {
+        "familyId": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
+        "title": { "type": "string", "maxLength": 100 },
+        "cost": { "type": "number" },
+        "icon": { "type": "string" }
+      },
+      "required": ["familyId", "title", "cost"]
+    }
+  },
+  "firestore": {
+    "/families/{familyId}": {
+      "schema": "Family",
+      "description": "Root collection for family groups."
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles linked to families."
+    },
+    "/families/{familyId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Tasks specific to a family."
+    },
+    "/families/{familyId}/rewards/{rewardId}": {
+      "schema": "Reward",
+      "description": "Rewards specific to a family."
+    }
+  }
+}
